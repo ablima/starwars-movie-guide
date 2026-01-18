@@ -1,8 +1,10 @@
 .noMovieSelected {
+  padding-top: 20px !important;
   text-align: center;
 }
 
 .detailsContainer {
+  padding-top: 20px !important;
   padding-left: 1rem !important;
   padding-right: 1rem !important;
 }
