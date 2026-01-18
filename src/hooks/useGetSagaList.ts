@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import { useEffect, useState } from 'react';
-import type { MovieDetails } from '../types/movieDetails';
+import type { MovieDetails } from '../types';
 import mockedSagaList from './mockedSagaList.json';
 
 const useGetSagaList = () => {

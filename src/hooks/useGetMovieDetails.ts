@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import type { MovieExtraDetails } from '../types/movieDetails';
+import type { MovieExtraDetails } from '../types';
 
 const episodeIMDBMap: { [key: number]: string } = {
   1: 'tt0120915',
