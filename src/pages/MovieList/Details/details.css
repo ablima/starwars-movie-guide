@@ -1,0 +1,23 @@
+.noMovieSelected {
+  text-align: center;
+}
+
+.detailsContainer {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.rowWithPadding {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.ratingBadge {
+  margin-top: 8px;
+  border: 1px solid #60acf3;
+  border-radius: 40px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-right: 10px;
+  color: #37afe6;
+}

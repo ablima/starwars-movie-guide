@@ -2,4 +2,19 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.container, .container-fluid, .col, .col-md-12 {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+.flexDiv {
+  display: flex;
+  flex-direction: row;
 }

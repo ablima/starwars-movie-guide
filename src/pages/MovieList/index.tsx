@@ -1,33 +1,36 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import useGetSagaList from "../../hooks/useGetSagaList";
-import ListFilters from "./filters";
-import List from "./list";
-import Details from "./details";
+import ListFilters from "./Filters/filters";
+import List from "./List/list";
+import Details from "./Details/details";
 import { useState } from "react";
+import type { MovieDetails } from "../../types";
+import './index.css';
 
 const MovieList = () => {
   const { data, loading, error } = useGetSagaList();
-  const [selectedMovie, setSelectedMovie] = useState<number | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<MovieDetails | null>(null);
 
   if (loading) return <Spinner animation="border" />;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <Container fluid>
-      <Row>
+      <Row className="filterContainer">
         <Col>
           <ListFilters />
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="moviesContainer">
           <List
             movies={data ?? []}
+            selectedEpisodeId={selectedMovie?.episode_id}
             setSelectedMovie={setSelectedMovie}
           />
         </Col>
         <Col>
-          <Details episode_id={selectedMovie} />
+          <Details movie={selectedMovie} />
         </Col>
       </Row>
     </Container>

@@ -1,0 +1,13 @@
+.filterContainer {
+  position: absolute;
+  width: 100%;
+}
+
+.moviesContainer {
+  height: 100vh;
+  border-right: 1px solid #ccc;
+}
+
+.contentContainer {
+  margin-top: 80px;
+}

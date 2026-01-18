@@ -1,6 +1,6 @@
 export interface MovieExtraDetails {
-  episode_id: number;
   Poster: string;
+  AverageRating: number;
   Ratings: { Source: string; Value: string }[];
 }
 
@@ -10,4 +10,5 @@ export interface MovieDetails {
   opening_crawl: string;
   director: string;
   release_date: string;
+  extraDetails?: MovieExtraDetails;
 }

@@ -1,5 +1,6 @@
 import MovieList from './pages/MovieList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@smastrom/react-rating/style.css'
 
 function App() {
   if (!import.meta.env.VITE_MOVIE_LIST_API_URL)
