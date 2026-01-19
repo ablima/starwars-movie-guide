@@ -1,0 +1,2 @@
+VITE_MOVIE_LIST_API_URL=https://swapi.info/api/films?format=json
+VITE_MOVIE_DETAILS_API_URL=https://www.omdbapi.com/?apiKey=YOUR_API_KEY
