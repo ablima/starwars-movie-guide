@@ -1,20 +1,13 @@
 :root {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(0, 0, 0);
   background-color: white;
   font-size: 1.2rem;
   font-weight: 400;
+  font-family: 'Roboto';
 }
 
-.container, .container-fluid, .col, .col-md-12 {
-  padding: 0;
-}
-
-.row {
+body {
   margin: 0;
-}
-
-.flexDiv {
-  display: flex;
-  flex-direction: row;
+  padding: 0;
 }

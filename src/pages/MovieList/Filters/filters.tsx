@@ -1,38 +1,48 @@
-import { Col, Container, Dropdown, DropdownButton, Form, Row } from "react-bootstrap";
+import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
 import type { sortOptions } from "../../../types";
 import './filters.css';
 
 interface ListFiltersProps {
+  sort: sortOptions;
   setSort: (sort: sortOptions) => void;
   filter: string;
   setFilter: (filter: string) => void;
 }
 
 const ListFilters = ({
+  sort,
   setSort,
   filter,
   setFilter
 }: ListFiltersProps) => {
   return (
-    <Container fluid className="filters">
-      <Row className="filterRow">
-        <Col md={"auto"}>
-          <DropdownButton id="dropdown-basic-button" title="SORT BY..." variant="outline-primary">
-            <Dropdown.Item onClick={() => setSort('episode')}>Episode</Dropdown.Item>
-            <Dropdown.Item onClick={() => setSort('rating')}>Rating</Dropdown.Item>
-            <Dropdown.Item onClick={() => setSort('year')}>Year</Dropdown.Item>
-          </DropdownButton>
-        </Col>
-        <Col lg={true}>
-          <Form.Control
+    <div className="filters">
+      <Stack direction={'row'} className="filterRow" spacing={4}>
+        <FormControl>
+          <InputLabel>Sort by</InputLabel>
+          <Select
+            id="dropdown-basic-button"
+            value={sort}
+            label="Sort by"
+            className="sortSelect"
+            onChange={(e) => setSort(e.target.value)}
+          >
+            <MenuItem value="episode">Episode</MenuItem>
+            <MenuItem value="rating">Rating</MenuItem>
+            <MenuItem value="year">Year</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <TextField
             type="text"
             value={filter}
+            label="Filter by title"
             placeholder="Type to filter..."
             onChange={(e) => setFilter(e.target.value)}
           />
-        </Col>
-      </Row>
-    </Container>
+        </FormControl>
+      </Stack>
+    </div>
   );
 }
 

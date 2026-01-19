@@ -6,3 +6,7 @@
 .filterRow {
   padding: 1rem;
 }
+
+.sortSelect {
+  width: 150px;
+}

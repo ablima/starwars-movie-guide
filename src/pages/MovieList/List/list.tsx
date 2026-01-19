@@ -1,7 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
 import type { MovieDetails } from "../../../types";
 import MovieRating from "../../../components/rating";
 import './list.css';
+import { Grid } from "@mui/material";
+import { convertNumberToRoman } from "../../../utils";
 
 interface ListProps {
   movies: MovieDetails[];
@@ -20,22 +21,29 @@ const List = ({
   };
 
   return (
-    <Container className="contentContainer">
+    <div className="contentContainer">
       {movies.map((movie) => (
-        <Row
+        <Grid
           key={movie.episode_id}
+          container
+          size={12}
           onClick={() => handleRowClick(movie)}
           className={"listRow " + (movie.episode_id === selectedEpisodeId && "selected")}
         >
-          <Col md={2}>EPISODE {movie.episode_id}</Col>
-          <Col md={4}>{movie.title}</Col>
-          <Col md={4}>
-            <MovieRating rating={movie.extraDetails?.AverageRating ?? 0} />
-          </Col>
-          <Col md={2}>{movie.release_date}</Col>
-        </Row>
+          <Grid size={2}>
+            <b>EPISODE {convertNumberToRoman(movie.episode_id)}</b>
+          </Grid>
+          <Grid size={4}>{movie.title}</Grid>
+          <Grid size={4}>
+            <MovieRating
+              rating={movie.extraDetails?.AverageRating ?? 0}
+              size="small"
+            />
+          </Grid>
+          <Grid size={2}>{movie.release_date}</Grid>
+        </Grid>
       ))}
-    </Container>
+    </div>
   );
 }
 

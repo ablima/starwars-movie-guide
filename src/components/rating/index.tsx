@@ -1,16 +1,17 @@
-import { Rating } from "@smastrom/react-rating";
+import { Rating } from "@mui/material";
 
 interface MovieRatingProps {
   rating: number;
+  size: "small" | "medium";
 }
 
-const MovieRating = ({ rating }: MovieRatingProps) => {
+const MovieRating = ({ rating, size }: MovieRatingProps) => {
   return (
     <Rating
       readOnly
-      style={{ maxWidth: 250 }}
-      items={10}
-      orientation="horizontal"
+      size={size}
+      max={10}
+      precision={0.1}
       value={rating}
     />
   );
