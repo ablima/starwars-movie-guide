@@ -1,3 +1,5 @@
+export type sortOptions = 'episode' | 'year' | 'rating';
+
 export interface MovieExtraDetails {
   Poster: string;
   AverageRating: number;

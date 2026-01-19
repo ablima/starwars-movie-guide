@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import type { MovieDetails } from '../types';
-import mockedSagaList from './mockedSagaList.json';
 
 const episodeIMDBMap: { [key: number]: string } = {
   1: 'tt0120915',
@@ -22,39 +21,41 @@ const useGetSagaList = () => {
       try {
         setLoading(true);
 
-        // TODO use real API when available
-        // const response = await axios.get(import.meta.env.VITE_MOVIE_LIST_API_URL);
-        // setData(response.data.results);
+        const response = await axios.get(import.meta.env.VITE_MOVIE_LIST_API_URL);
+        const movies = response.data;
 
-        const movies = mockedSagaList.results;
-
-        movies.map(async (movie: MovieDetails) => {
-          const details = await axios.get(
-            import.meta.env.VITE_MOVIE_DETAILS_API_URL, {
-            params: {
-              i: episodeIMDBMap[movie.episode_id],
-            },
-          });
-    
-          const ratings = details.data.Ratings.map(
-            (rating: { Source: string; Value: string }) => {
-              if (rating.Source.includes('Rotten Tomatoes')) {
-                return parseFloat(rating.Value.replace('%', '')) / 10;
-              } else if (rating.Source.includes('Metacritic')) {
-                return parseFloat(rating.Value.split('/')[0]) / 10;
-              } else if (rating.Source.includes('Internet Movie Database')) {
-                return parseFloat(rating.Value.split('/')[0]);
+        const promises = movies.map(async (movie: MovieDetails) => {
+          return new Promise<void>(async (resolve) => {
+            const details = await axios.get(
+              import.meta.env.VITE_MOVIE_DETAILS_API_URL, {
+              params: {
+                i: episodeIMDBMap[movie.episode_id],
+              },
+            });
+      
+            const ratings = details.data.Ratings.map(
+              (rating: { Source: string; Value: string }) => {
+                if (rating.Source.includes('Rotten Tomatoes')) {
+                  return parseFloat(rating.Value.replace('%', '')) / 10;
+                } else if (rating.Source.includes('Metacritic')) {
+                  return parseFloat(rating.Value.split('/')[0]) / 10;
+                } else if (rating.Source.includes('Internet Movie Database')) {
+                  return parseFloat(rating.Value.split('/')[0]);
+                }
               }
-            }
-          );
+            );
 
-          movie.extraDetails = {
-            Poster: details.data.Poster,
-            AverageRating: ratings.reduce((sum: number, current: number) => sum + current, 0) / ratings.length,
-            Ratings: details.data.Ratings,
-          };
+            movie.extraDetails = {
+              Poster: details.data.Poster,
+              AverageRating: ratings.reduce((sum: number, current: number) => sum + current, 0) / ratings.length,
+              Ratings: details.data.Ratings,
+            };
+            
+            resolve();
+          });
         });
 
+        await Promise.all(promises);
         setData(movies);
       } catch (error: any) {
         setError(error.message);

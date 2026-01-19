@@ -1,8 +1,9 @@
 import { Col, Container, Dropdown, DropdownButton, Form, Row } from "react-bootstrap";
+import type { sortOptions } from "../../../types";
 import './filters.css';
 
 interface ListFiltersProps {
-  setSort: (sort: 'episode' | 'year') => void;
+  setSort: (sort: sortOptions) => void;
   filter: string;
   setFilter: (filter: string) => void;
 }
@@ -18,6 +19,7 @@ const ListFilters = ({
         <Col md={"auto"}>
           <DropdownButton id="dropdown-basic-button" title="SORT BY..." variant="outline-primary">
             <Dropdown.Item onClick={() => setSort('episode')}>Episode</Dropdown.Item>
+            <Dropdown.Item onClick={() => setSort('rating')}>Rating</Dropdown.Item>
             <Dropdown.Item onClick={() => setSort('year')}>Year</Dropdown.Item>
           </DropdownButton>
         </Col>

@@ -4,36 +4,22 @@ import ListFilters from "./Filters/filters";
 import List from "./List/list";
 import Details from "./Details/details";
 import { useEffect, useState } from "react";
-import type { MovieDetails } from "../../types";
+import type { MovieDetails, sortOptions } from "../../types";
+import filterData from "./Filters/filterData";
 import './index.css';
 
 const MovieList = () => {
   const { data, loading, error } = useGetSagaList();
   const [listData, setListData] = useState<MovieDetails[] | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<MovieDetails | null>(null);
-  const [sort, setSort] = useState<'episode' | 'year'>('episode');
+  const [sort, setSort] = useState<sortOptions>('episode');
   const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
     if (data && data.length > 0) {
-      let filteredData = [...data];
-      if (sort === 'episode') {
-        filteredData.sort((a, b) => a.episode_id - b.episode_id);
-      } else if (sort === 'year') {
-        filteredData.sort((a, b) => {
-          const yearA = parseInt(a.release_date.split('-')[0]);
-          const yearB = parseInt(b.release_date.split('-')[0]);
-          return yearA - yearB;
-        });
-      }
-
-      if (filter.trim() !== '') {
-        filteredData = filteredData.filter(movie =>
-          movie.title.toLowerCase().includes(filter.toLowerCase())
-        );
-      }
-
-      setListData(filteredData);
+      setListData(
+        filterData(data, sort, filter)
+      );
     }
   }, [sort, filter, data]);
 
